@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Launcher : MonoBehaviour
 {
-    public AudioSource audioSource;
     public GameObject bullet;   // 미사일 프리팹 가져올 변수
 
     void Start()

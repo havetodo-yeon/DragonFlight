@@ -6,13 +6,20 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     // 움직일 속도를 지정해 줍니다.
-    public float moveSpeed = 1.3f;
+    public static float moveSpeed = 1.3f;
 
-    private void Start()
+/*    // 적 체력 설정 2024-04-02
+    public GameObject Instance;
+    public int enemyHealth = 1;
+
+    private void Awake()
     {
-        
+        if(Instance == null)
+        {
+            Instance = gameObject;
+        }
     }
-
+*/
     void Update()
     {
         // 움직임을 변수로 만들기
@@ -27,4 +34,5 @@ public class Enemy : MonoBehaviour
     {
         Destroy(gameObject);    // 객체 삭제
     }
+
 }

@@ -8,10 +8,7 @@ public class Bullet : MonoBehaviour
 
     public GameObject explosion;
 
-    void Start()
-    {
-        
-    }
+    public int attackSize = 1;
 
     void Update()
     {
@@ -40,7 +37,7 @@ public class Bullet : MonoBehaviour
             GameObject go = Instantiate(explosion, transform.position, Quaternion.identity);
             Destroy(go, 1);
 
-            // 적 지우기
+            // 적 지우기 -> 적 체력 깎기 2024-04-02
             Destroy(collision.gameObject);
 
             // 사운드 2024-04-02

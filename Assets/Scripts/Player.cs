@@ -7,6 +7,9 @@ public class Player : MonoBehaviour
     // 스피드
     public float moveSpeed = 3f;
 
+    // 충돌 이펙트 2024-04-02
+    public GameObject Collision;
+
     void Start()
     {
         
@@ -19,19 +22,18 @@ public class Player : MonoBehaviour
 
         // x쪽 이동 설정
         transform.Translate(distanceX, 0, 0);
-/*        if(transform.position.x >= -2.5 && transform.position.x <= 2.5)
-        {
-        }
-        if(transform.position.x < -2.5)
-        {
-            transform.position = new Vector3(-2.5f, transform.position.y, 0);
-        }
-        else if(transform.position.x > 2.5)
-        {
-            transform.position = new Vector3(2.5f, transform.position.y, 0);
-        }
-*/
-
-
     }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            GameManager.Instance.MinusScore(10);
+            GameObject go = Instantiate(Collision, transform.position, Quaternion.identity);
+            Destroy(go, 1);
+        }
+    }
+
+
+
 }
