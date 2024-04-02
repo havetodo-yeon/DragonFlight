@@ -172,5 +172,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 2
-  explosionAnimation: {fileID: 139366, guid: b185c1a9cf067374586d095111b15bd1, type: 3}
-  enemyDieSound: {fileID: 1549057668320687245, guid: 34d02386b53f94a4f881ec880e67c6e3, type: 3}
+  explosion: {fileID: 8194992990867289339, guid: 0d956e0f018c9f543bdd4eecb0e142c1, type: 3}

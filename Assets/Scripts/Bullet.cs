@@ -6,9 +6,7 @@ public class Bullet : MonoBehaviour
 {
     public float moveSpeed = 0.45f;
 
-
-    public GameObject explosionAnimation;
-    public GameObject enemyDieSound;
+    public GameObject explosion;
 
     void Start()
     {
@@ -38,16 +36,22 @@ public class Bullet : MonoBehaviour
         // 미사일과 적이 부딪혔다.
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            GameObject newExplosion = Instantiate(explosionAnimation, new Vector3(transform.position.x, transform.position.y, 0f), Quaternion.identity);
-            GameObject newEnemyDie = Instantiate(enemyDieSound, new Vector3(transform.position.x, transform.position.y, 0f), Quaternion.identity);
+            // 폭발 이펙트 2024-04-02
+            GameObject go = Instantiate(explosion, transform.position, Quaternion.identity);
+            Destroy(go, 1);
+
             // 적 지우기
             Destroy(collision.gameObject);
 
+            // 사운드 2024-04-02
+            SoundManager.instance.DieSound();
+
+            // 점수 획득 2024-04-02
+            GameManager.Instance.AddScore(100);
+
+
             // 미사일 지우기
             Destroy(gameObject);
-
-            Destroy(newExplosion, 1.5f);
-            Destroy(newEnemyDie, 1.5f);
         }
     }
 
