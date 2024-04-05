@@ -28,8 +28,9 @@ public class Player : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-            GameManager.Instance.MinusScore(10);
+            GameManager.Instance.GetHurt(gameObject);
             GameObject go = Instantiate(Collision, transform.position, Quaternion.identity);
+            GameManager.Instance.MinusScore(10);
             Destroy(go, 1);
         }
     }

@@ -6,7 +6,9 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     // 움직일 속도를 지정해 줍니다.
-    public static float moveSpeed = 1.3f;
+    public float moveSpeed = 1.3f;
+    public float score = 0;
+    public float health = 10;
 
 /*    // 적 체력 설정 2024-04-02
     public GameObject Instance;

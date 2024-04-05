@@ -16,6 +16,9 @@ public class GameManager : MonoBehaviour
     public int score = 0;  // 점수 관리
     int m = 0;  // 미터기
 
+    public GameObject bossHealth;
+    public Slider bossSlider;
+
     private void Awake()
     {
         if (Instance == null)    // null 체크
@@ -119,10 +122,43 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         StartCoroutine("Fade");
-        bossEvent.text = "Clear><!!";
-        bossEvent.color = new Color(1, 1, 0, 1);
+        bossEvent.text = "Clear!!!";
+        bossEvent.color = new Color(1, 1, 1, 1);
+        StopCoroutine("MeterCheck");
+        Launcher.goShoot = false;
+        Invoke("Score", 2);
+    }
+
+    public void Score()
+    {
+        bossEvent.text = "";
+        MeterText.alignment = TextAnchor.LowerCenter;
+        MeterText.fontSize = 100;
+        scoreText.alignment = TextAnchor.MiddleCenter;
+        scoreText.fontSize = 120;
+        scoreText.color = new Color(1, 1, 1, 1);
+    }
+
+    public void GetHurt(GameObject gameObject)
+    {
+        StartCoroutine(BeingRed(gameObject));
+    }
+    IEnumerator BeingRed(GameObject gameObject)
+    {
+        float startAlpha = 0;
+        SpriteRenderer objectColor = gameObject.GetComponent<SpriteRenderer>();
+        objectColor.color = new Color(1, 0, 0, 1);
+        while (startAlpha < 1.0f)
+        {
+            startAlpha += 0.08f;
+            yield return new WaitForSeconds(0.01f);
+            if (objectColor == null) // objectColor가 null인지 체크
+                yield break; // null이면 코루틴 종료
+            objectColor.color = new Color(1, startAlpha, startAlpha, 1);
+        }
     }
 
 
 
 }
+

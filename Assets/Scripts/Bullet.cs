@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public float moveSpeed = 0.45f;
-
     public GameObject explosion;
+
+    public float moveSpeed = 0.45f;
 
     public int attackSize = 1;
 
@@ -33,18 +33,26 @@ public class Bullet : MonoBehaviour
         // 미사일과 적이 부딪혔다.
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            // 폭발 이펙트 2024-04-02
-            GameObject go = Instantiate(explosion, transform.position, Quaternion.identity);
-            Destroy(go, 1);
+            Enemy enemy = collision.gameObject.GetComponent<Enemy>();
 
             // 적 지우기 -> 적 체력 깎기 2024-04-02
-            Destroy(collision.gameObject);
+            // Destroy(collision.gameObject);
+            enemy.health -= 10;
 
             // 사운드 2024-04-02
             SoundManager.instance.DieSound();
+            GameManager.Instance.GetHurt(collision.gameObject);
+            if (enemy.health <= 0)
+            {
+                Destroy(collision.gameObject);
+                // 폭발 이펙트 2024-04-02
+                GameObject go = Instantiate(explosion, transform.position, Quaternion.identity);
+                Destroy(go, 1);
+            }
+
 
             // 점수 획득 2024-04-02
-            GameManager.Instance.AddScore(100);
+            GameManager.Instance.AddScore((int)enemy.score);
 
 
             // 미사일 지우기
